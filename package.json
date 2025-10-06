@@ -1,0 +1,22 @@
+{
+  "name": "scalable-task-system",
+  "version": "1.0.0",
+  "description": "High-performance task system for 1M+ users",
+  "workspaces": [
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:task\" \"npm run dev:notification\"",
+    "dev:task": "cd services/task-service && npm run dev",
+    "dev:notification": "cd services/notification-service && npm run dev",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "autocannon": "^8.0.0",
+    "uuid": "^13.0.0"
+  }
+}

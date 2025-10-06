@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: task-system-ingress
+  namespace: task-system
+  annotations:
+    nginx.ingress.kubernetes.io/rate-limit: "1000" #max request
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m" #per minute
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /tasks
+            pathType: Prefix
+            backend:
+              service:
+                name: task-service
+                port:
+                  number: 3001
+          - path: /users
+            pathType: Prefix
+            backend:
+              service:
+                name: notification-service
+                port:
+                  number: 3002
+          - path: /notifications
+            pathType: Prefix
+            backend:
+              service:
+                name: notification-service
+                port:
+                  number: 3002
